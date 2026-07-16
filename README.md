@@ -58,25 +58,14 @@ project-echo/
 
 ## Quick Start
 
+See [INSTALL.md](INSTALL.md) for the full step-by-step installation guide covering macOS and Linux.
+
 ```bash
-# Install dependencies
-pip install pytest pyyaml youtube-transcript-api
-
-# Run tests
-cd ~/Documents/twin-output && python3 -m pytest tests/ -v
+git clone https://github.com/NewBitsNow/project-echo.git
+cd project-echo
+pip3 install pyyaml pytest youtube-transcript-api
+python3 -m pytest tests/ -v
 # 21 tests should pass
-
-# Check routing dashboard
-python3 scripts/routing_logger.py
-
-# Use the content agent
-python3 scripts/content_agent.py "https://youtube.com/watch?v=VIDEO_ID" --format summary
-
-# Use the research agent
-python3 scripts/research_agent.py "your research query" --sources arxiv
-
-# Generate Framehead content
-python3 scripts/framehead_agent.py --mode observation --topic "humans and coffee"
 ```
 
 ## Model Routing
