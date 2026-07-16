@@ -1,0 +1,64 @@
+# Model routing tiers — cheapest adequate model first
+# Used by classify_task.py to route tasks to the right model
+tiers:
+  - name: free
+    description: "OpenRouter free tier — zero cost, suitable for simple tasks"
+    models:
+      - provider: openrouter
+        model: qwen/qwen3-coder:free
+    cost_per_1k_tokens: 0.0
+    max_context: 32000
+    suitable_for:
+      - simple-edit
+      - read-only
+      - formatting
+      - simple-query
+    confidence_threshold: 0.8
+
+  - name: cheap-local
+    description: "Local Ollama model — fast, no API cost, runs on your machine"
+    models:
+      - provider: local
+        model: qwen2.5-coder:7b
+        base_url: "http://localhost:11434/v1"
+    cost_per_1k_tokens: 0.0
+    max_context: 32000
+    suitable_for:
+      - small-task
+      - test-writing
+      - simple-refactor
+      - code-review
+    confidence_threshold: 0.7
+
+  - name: paid-cheap
+    description: "Cheap paid model — minimal cost, good for medium tasks"
+    models:
+      - provider: openrouter
+        model: qwen/qwen3-coder
+    cost_per_1k_tokens: 0.0001
+    max_context: 128000
+    suitable_for:
+      - medium-task
+      - documentation
+      - debugging
+    confidence_threshold: 0.7
+
+  - name: paid-premium
+    description: "Premium model — intelligent, expensive, reserved for complex work"
+    models:
+      - provider: openrouter
+        model: anthropic/claude-sonnet-4
+    cost_per_1k_tokens: 0.015
+    max_context: 200000
+    suitable_for:
+      - architecture
+      - refactor
+      - complex-task
+      - planning
+    confidence_threshold: 0.6
+
+  - name: escalation
+    description: "Cannot handle — hand back to Jason"
+    models: []
+    suitable_for: []
+    confidence_threshold: 0.0

@@ -1,0 +1,76 @@
+- id: adr-001
+  type: architecture-decision-record
+  timestamp: 2026-07-XXT00:00:00+00:00
+  content: 'ADR-001: Consent-First Architecture
+
+
+    Every agent checks a YAML policy file before acting. Global restrictions: no spending,
+    no messaging third parties, no system config changes.
+
+    - Date: 2026-07-XX
+
+    - File: `~/Documents/twin-output/state/consent-contract.yaml`'
+  source: MEMORY.md
+  tags:
+  - adr
+  - adr-001
+  file_ref: '`~/Documents/twin-output/state/consent-contract.yaml`'
+- id: adr-002
+  type: architecture-decision-record
+  timestamp: 2026-07-XXT00:00:00+00:00
+  content: 'ADR-002: Orchestrator-Led Delegation
+
+
+    Orchestrator agent decides priorities and spawns domain agents via `delegate_task`.
+    No direct domain-to-domain communication.
+
+    - Date: 2026-07-XX'
+  source: MEMORY.md
+  tags:
+  - adr
+  - adr-002
+  file_ref: ''
+- id: adr-003
+  type: architecture-decision-record
+  timestamp: '2026-07-15T00:00:00+00:00'
+  content: "ADR-003: Model Tiering\n\nSimple tasks \u2192 local/free models. Complex\
+    \ tasks \u2192 paid premium models. Escalate on low confidence.\n- Status: Implemented\
+    \ \u2014 classify_task.py + model-tiers.yaml + orchestrator integration\n- Date:\
+    \ 2026-07-15\n- Files: `~/Documents/twin-output/scripts/classify_task.py`, `~/Documents/twin-output/config/model-tiers.yaml`"
+  source: MEMORY.md
+  tags:
+  - adr
+  - adr-003
+  file_ref: ''
+- id: adr-004
+  type: architecture-decision-record
+  timestamp: '2026-07-15T00:00:00+00:00'
+  content: "ADR-004: MEMORY.md Living Document\n\nA plain markdown file at the project\
+    \ root captures durable knowledge, decisions, environment, and timeline. Managed\
+    \ by the `memory-doc` skill. Readable offline in any text editor \u2014 no tooling\
+    \ dependency.\n- Date: 2026-07-15\n- File: `/Volumes/4TB_SSD/FrameHead/MEMORY.md`"
+  source: MEMORY.md
+  tags:
+  - adr
+  - adr-004
+  file_ref: '`/Volumes/4TB_SSD/FrameHead/MEMORY.md`'
+- id: adr-005
+  type: architecture-decision-record
+  timestamp: '2026-07-15T00:00:00+00:00'
+  content: 'ADR-005: OpenRouter Testing Skill
+
+
+    Created `openrouter-testing` skill to verify model routing through OpenRouter.
+    TDD-style: check config, prove routing, verify credits, then document.
+
+    - Date: 2026-07-15
+
+    - Skill: `software-development/openrouter-testing`
+
+
+    ---'
+  source: MEMORY.md
+  tags:
+  - adr
+  - adr-005
+  file_ref: ''

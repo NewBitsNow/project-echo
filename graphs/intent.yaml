@@ -1,0 +1,30 @@
+- id: intent-1-193512
+  type: note
+  timestamp: '2026-07-16T02:35:12.903804+00:00'
+  content: Build a multi-agent digital twin (jason-twin-v0) that operates autonomously
+    on my behalf, governed by a consent contract.
+  source: jason
+  tags:
+  - goal
+  - twin
+  - autonomy
+- id: intent-2-193514
+  type: note
+  timestamp: '2026-07-16T02:35:14.082488+00:00'
+  content: "Develop FrameHead as a digital persona and content generator \u2014 a\
+    \ neon wireframe AI anthropologist."
+  source: jason
+  tags:
+  - goal
+  - framehead
+  - persona
+- id: intent-3-193515
+  type: note
+  timestamp: '2026-07-16T02:35:15.287003+00:00'
+  content: Minimize model costs by routing simple tasks to free/local models and reserving
+    premium models for complex work.
+  source: jason
+  tags:
+  - goal
+  - cost
+  - model-routing
