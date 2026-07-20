@@ -158,7 +158,7 @@ Examples:
 
 | Agent | Domain | Tools | Persona Slice |
 |-------|--------|-------|---------------|
-| **Code Agent** | Maintains Framehead project | terminal, git, file | Developer persona |
+| **Code Agent** | Maintains Echo project | terminal, git, file | Developer persona |
 | **Content Agent** | Generates social content | web, file, image | Creator persona |
 | **Monitor Agent** | Watches systems, alerts | web, file, messaging | Sysop persona |
 | **Comm Agent** | Handles messages (with consent) | email, messaging | Communicator persona |
@@ -231,7 +231,7 @@ before acting. It lives in a single file that all agents read.
 
 ```yaml
 twin_id: "project-echo-v1"
-subject: "Jason Niemi"
+subject: "Project Echo Contributors"
 created: "2026-07-15"
 expires: null                       # ISO date, or null for no expiry
 
@@ -270,9 +270,9 @@ global_restrictions:
 
 # Write whitelist (where agents can create/modify files)
 write_whitelist:
-  - "/Volumes/4TB_SSD/FrameHead/**"
-  - "/Users/jasonniemi/Documents/twin-output/**"
-  - "/Users/jasonniemi/.hermes/skills/project-echo/**"
+  - "project-root/**"
+  - "~/.echo-core/**"
+  - "~/.hermes/skills/project-echo/**"
 
 # Escalation behavior
 escalation:

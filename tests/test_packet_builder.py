@@ -1,11 +1,7 @@
 """Tests for packet_builder.py — verify structured packet construction."""
 
-import sys
-import os
 import pytest
-
-sys.path.insert(0, os.path.expanduser("~/Documents/twin-output/scripts"))
-from packet_builder import build_packet, packet_to_delegation
+from echo_core.core.packet_builder import build_packet, packet_to_delegation
 
 
 def test_build_packet_has_required_fields():

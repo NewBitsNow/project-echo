@@ -1,12 +1,7 @@
 """Tests for classify_task.py — verify model routing decisions."""
 
-import sys
-import os
 import pytest
-
-# Add scripts dir to path so we can import classify_task
-sys.path.insert(0, os.path.expanduser("~/Documents/twin-output/scripts"))
-from classify_task import classify_task
+from echo_core.core.classify_task import classify_task
 
 
 def test_simple_edit_is_free_tier():
@@ -19,7 +14,6 @@ def test_simple_edit_is_free_tier():
 def test_architecture_task_is_premium():
     """Architecture/design tasks should route to the paid premium tier."""
     result = classify_task("Design the database schema for the new microservice")
-    # Complexity is high (design + database + schema = 1.0) so it may escalate
     assert result["tier"] in ["paid-premium", "escalation"]
 
 
@@ -73,7 +67,10 @@ def test_model_is_string_or_none():
 
 def test_escalation_returns_no_model():
     """A task that can't be classified should return escalation with model=None."""
-    # This is deliberately ambiguous/gibberish to test the fallback
-    result = classify_task("Something completely unknown and extremely complex requiring deep architectural decisions across multiple systems with security implications and infrastructure changes that I don't understand")
+    result = classify_task(
+        "Something completely unknown and extremely complex "
+        "requiring deep architectural decisions across multiple systems "
+        "with security implications and infrastructure changes"
+    )
     if result["tier"] == "escalation":
         assert result["model"] is None

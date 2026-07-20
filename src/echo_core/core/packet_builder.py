@@ -1,30 +1,33 @@
 """Packet builder — constructs structured Agent Packets for domain agent delegation.
 
 Inspired by ACP's Agent Packet Protocol (APP). Produces a standardized work unit
-with mission, routing (via classify_task), scope boundaries, and verification steps.
+with mission, routing, scope boundaries, and verification steps.
+
+Moved from Project Echo scripts into echo_core.core.
+Original: ~/.echo-core/scripts/packet_builder.py
 """
 
-import sys
-import os
-
-sys.path.insert(0, os.path.expanduser("~/Documents/twin-output/scripts"))
-from classify_task import classify_task
+from echo_core.core.classify_task import classify_task
 
 
-def build_packet(mission: str, scope: list = None, forbidden: list = None,
-                 verification_commands: list = None,
-                 acceptance_criteria: list = None) -> dict:
+def build_packet(
+    mission: str,
+    scope: list = None,
+    forbidden: list = None,
+    verification_commands: list = None,
+    acceptance_criteria: list = None,
+) -> dict:
     """Build a structured Agent Packet with routing, scope, and verification.
 
     Args:
-        mission: Description of the task to accomplish
-        scope: List of glob patterns for files the agent may modify
-        forbidden: List of glob patterns the agent must NOT touch
-        verification_commands: Shell commands to verify the work
-        acceptance_criteria: List of criteria that define done
+        mission: Description of the task to accomplish.
+        scope: List of glob patterns for files the agent may modify.
+        forbidden: List of glob patterns the agent must NOT touch.
+        verification_commands: Shell commands to verify the work.
+        acceptance_criteria: List of criteria that define done.
 
     Returns:
-        A dict with keys: mission, routing, scope, verification, acceptance_criteria
+        A dict with keys: mission, routing, scope, verification, acceptance_criteria.
     """
     routing = classify_task(mission)
 

@@ -1,14 +1,15 @@
 """Task classifier — scores task complexity and routes to the cheapest adequate model tier.
 
-Uses heuristic keyword matching and word-count signals to estimate complexity,
-then maps the result to a model tier defined in model-tiers.yaml.
+Moved from Project Echo scripts into echo_core.core.
+Original: ~/.echo-core/scripts/classify_task.py
 """
 
 import re
 import yaml
 from pathlib import Path
 
-TIERS_PATH = Path("~/Documents/twin-output/config/model-tiers.yaml").expanduser()
+# Default paths (overridable via ECHO_CORE config)
+TIERS_PATH = Path("~/.echo-core/config/model-tiers.yaml").expanduser()
 
 # Heuristic signals that increase complexity (keyword → weight 0.0-1.0)
 COMPLEXITY_SIGNALS = {
@@ -42,7 +43,7 @@ TASK_PATTERNS = {
         r"fix\s+(a\s+)?(small|minor|tiny|simple)",
     ],
     "read-only": [
-        r"what\s+(is|are|does)", r"show\s+me", r"list\s+", r"find\s+",
+        r"what\s+(is|are|does)", r"show\s+me", r"list\s+",
         r"search\s+", r"read\s+", r"check\s+",
     ],
     "architecture": [
@@ -63,8 +64,12 @@ TASK_PATTERNS = {
 def classify_task(task_description: str) -> dict:
     """Classify a task by complexity and determine the appropriate model tier.
 
-    Returns a dict with keys: tier, complexity, task_type, model, provider.
-    If no suitable tier is found, returns escalation tier with model=None.
+    Args:
+        task_description: Natural language description of the task.
+
+    Returns:
+        dict with keys: tier, complexity, task_type, model, provider.
+        If no suitable tier is found, returns escalation tier with model=None.
     """
     task_lower = task_description.lower()
     word_count = len(task_description.split())
@@ -97,13 +102,13 @@ def classify_task(task_description: str) -> dict:
     # Load tiers and find the best match
     if not TIERS_PATH.exists():
         # Default routing if no config file
-        if complexity < 0.3:
+        if complexity <= 0.3:
             return {
                 "tier": "free", "complexity": round(complexity, 2),
                 "task_type": task_type, "model": "qwen/qwen3-coder:free",
                 "provider": "openrouter",
             }
-        elif complexity < 0.6:
+        elif complexity <= 0.6:
             return {
                 "tier": "paid-cheap", "complexity": round(complexity, 2),
                 "task_type": task_type, "model": "qwen/qwen3-coder",
@@ -134,7 +139,6 @@ def classify_task(task_description: str) -> dict:
                 }
 
     # Fallback: find the cheapest tier that can handle this complexity
-    # Walk tiers in order (cheapest first), skip escalation
     for tier in tiers:
         if tier["name"] == "escalation":
             continue
@@ -154,3 +158,9 @@ def classify_task(task_description: str) -> dict:
         "tier": "escalation", "complexity": round(complexity, 2),
         "task_type": task_type, "model": None, "provider": None,
     }
+
+
+def set_tiers_path(path: str):
+    """Override the default tiers config path."""
+    global TIERS_PATH
+    TIERS_PATH = Path(path).expanduser()

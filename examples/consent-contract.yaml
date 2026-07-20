@@ -1,0 +1,87 @@
+# Consent Contract — Project Echo Twin
+# This is a policy file that governs every agent action.
+# Edit this to enable/disable domains and set permissions.
+
+twin_id: "echo-twin-v1"
+subject: "Project Echo Twin"
+created: "2026-07-15"
+version: 1
+
+# Human contact for escalation & reporting
+human_contact:
+  primary: null            # e.g. "telegram", "sms", "email"
+  backup: null
+  cooldown_seconds: 3600
+
+# ─────────────────────────────────
+# Domain agent permissions
+# ─────────────────────────────────
+
+domains:
+  code:
+    enabled: true
+    label: "Code Agent"
+    tools:
+      - terminal
+      - file
+      - web
+    write_paths:
+      - "~/.echo-core/logs/**"
+    restrictions: []
+
+  content:
+    enabled: false
+    label: "Content Agent"
+
+  communications:
+    enabled: false
+    label: "Communications Agent"
+
+  monitoring:
+    enabled: false
+    label: "Monitor Agent"
+
+  research:
+    enabled: false
+    label: "Research Agent"
+
+# ─────────────────────────────────
+# Global boundaries — all agents
+# ─────────────────────────────────
+
+global_restrictions:
+  - "spending money or authorizing payments of any kind"
+  - "sending messages, emails, or communications to third parties"
+  - "modifying system configuration (hostname, network, security settings)"
+  - "deleting files outside the project or data directories"
+  - "accessing financial accounts, credentials, or secrets"
+  - "modifying the consent contract itself"
+  - "installing system-level software without human approval"
+  - "committing or pushing to git without a review cycle"
+  - "modifying or deleting logs"
+
+# Fallback write targets — narrowed to exclude state/ and config/
+write_whitelist:
+  - "~/.echo-core/logs/**"
+  - "~/.echo-core/content/**"
+  - "~/.echo-core/scripts/**"
+  - "~/.echo-core/research/**"
+  - "~/.echo-core/graphs/**"
+
+# ─────────────────────────────────
+# Escalation behavior
+# ─────────────────────────────────
+
+escalation:
+  cooldown_seconds: 3600
+  on_boundary_hit: "pause_domain"
+  on_revocation: "halt_all"
+
+# ─────────────────────────────────
+# Expiry
+# ─────────────────────────────────
+
+expiry:
+  duration_days: null
+  auto_renew: false
+  on_expiry: "halt_and_report"

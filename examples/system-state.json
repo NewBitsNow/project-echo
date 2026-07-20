@@ -1,0 +1,13 @@
+{
+  "twin_id": "echo-twin-v1",
+  "twin_name": "Project Echo Twin",
+  "status": "active",
+  "current_cycle": 0,
+  "last_wake": null,
+  "created_at": "2026-07-15T00:00:00Z",
+  "expires_at": null,
+  "last_report_sent": null,
+  "active_domains": [],
+  "pending_escalations": [],
+  "consent_contract_hash": null
+}
